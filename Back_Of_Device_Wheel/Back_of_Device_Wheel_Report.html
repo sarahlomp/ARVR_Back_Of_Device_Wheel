@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back-of-device wheel for mobile one-handed interaction</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            text-align: left;
+            margin: 50px 20%;
+        }
+
+        #headline {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        h3 {
+            color: #444;
+            text-align: center;
+        }
+
+        p {
+            color: #333;
+            font-size: 19px;
+        }
+
+        a {
+            color: #333; 
+            text-decoration: none; 
+        }
+
+        a:hover {
+            text-decoration: underline; 
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        figure {
+            width: 50%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="headline">
+        <h1>Back-of-device wheel for mobile one-handed interaction</h1>
+        <h3>Adam Globisch, Sarah Lomp</h3>
+    </div>
+    <br><br><br>
+
+    <h2>Abstract</h2>
+    <p>The use of smartphones has become a significant part of everyday life for many people and is still increasing, 
+        yet the challenges of one-handed horizontal smartphone use persist. The difficulties in reaching all corners 
+        of the screen and maintaining a stable grip during one-handed horizontal use has led to the exploration of 
+        alternative solutions. Therefore, we aim to introduce a back-of-device tangible user 
+        interface in the form of a rotary wheel. The aim is to enhance user satisfaction and stability when holding a 
+        smartphone horizontally with one hand. The device, implemented using an Arduino Uno, features a rotary encoder 
+        and a Bluetooth module for wireless communication with a dedicated smartphone app. Initial test compare the 
+        efficiency of using the back-of-device wheel to skip video content with the conventional manual method: skipping 
+        by hand. In the following we provide details on the design, implementation, and initial testing of this novel 
+        approach to address the challenges of one-handed horizontal smartphone use. <br><br></p>
+
+    <figure>
+        <img src="title.jpg" alt="Back-of-Device tangible wheel attached to the smartphone">
+        <figcaption style="text-align: center;">Figure 1: Back-of-Device Tangible Wheel attached to the Smartphone</figcaption>
+    </figure>
+
+    <h2>Context</h2>
+    <p>The smartphone has become an essential part of everyday life. However, certain ergonomic challenges persist, 
+        particularly when users attempt to operate their smartphones with only one hand in a horizontal orientation. <br>
+        The thumb's range of motion is often insufficient to reach all corners of the screen comfortably, leading to 
+        frustration and a less-than-optimal user experience. Additionally, the grip stability of the smartphone is limited 
+        when held horizontally with only one hand, resulting in a potential drop risk. <br>
+        Current solutions and gestures designed for general smartphone use, as a one-hand-mode often fall short when 
+        applied to horizontal scenarios. Conventional gestures such as swiping, or tapping are less user-friendly and more 
+        likely to cause errors in this particular context. Users frequently find themselves struggling to execute precise 
+        commands or access specific areas of the screen efficiently.<br><br></p>
+
+    <h2>Motivation</h2>
+    <p>The decision in favour of a tangible user interface results from the existing limitations of conventional 
+        touch-based interactions. Our specific tangible user interface introduces a back-of-device rotary wheel to 
+        meet the need for a customised and convenient method of interaction. <br>
+        The tangible user interface presents a physical element that users can manipulate to interact with their devices. 
+        This approach offers a more direct and intuitive way of communication, based on the natural way humans interact with 
+        physical objects in the real world. By introducing a rotary wheel at the back of the smartphone, users gain a familiar 
+        and tangible method for navigating content without the need to compromise on comfort or stability. The tangible user 
+        interface offers the potential to redefine the way people interact with their smartphones in challenging situations 
+        and contribute to a more enjoyable and efficient user experience. <br>
+        To measure the effectiveness of the tangible user interface on the back of the device empirically, we carried out a 
+        comprehensive test task focusing on one of the most common activities in one-handed horizontal smartphone 
+        use - skipping videos. This task was selected due to its relevance to everyday smartphone interactions and its 
+        direct application in scenarios where users hold the device with one hand in a horizontal orientation. This idea 
+        leads us to our main question, which we wish to answer in our experiment: Can a back-of-device wheel increase overall 
+        user-satisfaction in one-handed video skipping?<br><br></p>
+
+    <h2>State of the Art</h2>
+    <p>A notable contribution to the field of around-device video skipping is presented in the paper entitled 
+        "Exploring Around-Device Tangible Interactions for Mobile Devices with a Magnetic Ring" [1]. In this work, 
+        a magnetic ring is used as a tangible input device that allows users to rotate the ring to skip through video 
+        content on their smartphones. While this approach has similarities to our implemented wheel, the main difference 
+        lies in the positioning - the magnetic ring is not located on the back of the device. 
+        </p>
+        <br><br>
+        <figure>
+            <video controls muted>
+                <source src="MagneticRing.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <figcaption style="text-align: center;">Figure 2: Around-Device tangible Ring for Video-Skipping [1]</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        Whereas an exploration of back-of-device interactions is presented in the paper "BackSwipe: Back-of-device 
+        Word-Gesture Interaction on Smartphones" [2]. This work introduces a technique where users perform swiping 
+        gestures on the back of the smartphone to initiate word-gesture interactions, like using an "invisible keyboard." 
+        While this method showcases the potential of back-of-device interactions, the swiping technique may not align 
+        with the specific needs addressed by our rotary wheel. The fat finger problem, often encountered in touch-based 
+        interactions, could hinder the precision and reliability of swiping gestures. 
+        </p>
+        <br><br>
+        <figure>
+            <video controls muted>
+                <source src="BackSwipe.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <figcaption style="text-align: center;">Figure 3: Back-Of-Device Tangible User Interface for Typing [2]</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        Our back-of-device tangible user interface distinguishes itself by combining the advantages of a tangible rotary 
+        wheel positioned at the back of the smartphone. As there are no directly comparable solutions, we decided to 
+        compare it with manual video skipping only by hand. By focusing on the direct comparison with the manual technique, 
+        we want to highlight the specific advantages and improvements that our solution brings to the task of one-handed 
+        video skipping.<br><br></p>
+
+    <h2>Implementation</h2>
+    <p>At the core of our design was the usage of an Arduino Uno in combination with a KY-040 rotary encoder, which 
+        was chosen due to its central role in our project. The rotary encoder's ability to infinitely rotate by 360 degrees 
+        and to provide sensory feedback with each tick became the key feature of our tangible user interface. This characteristic, 
+        essential for precision, was central to the decision to design our prototype as a wheel rather than a slider. 
+        While a slider could have served the purpose of video skipping as well, its lack of precision, reinforced by the 
+        fat finger problem, and the lack of sensory feedback made the rotary wheel a more suitable choice.<br>
+        To improve the ergonomic functionality of the rotary encoder, we 3D printed a specially designed knob for this purpose. 
+        The slim profile of the encoder required the attachment of a knob for easy operation with just a single finger. 
+        The attachable knob with a diameter of about 3 cm ensures easy turning. The dents on the underside of the knob 
+        improve grip. As the top of the knob has no dents, users can choose the side that suits their grip preference. 
+        We included an Arduino Bluetooth module HC-05 for seamless communication between the tangible interface and the 
+        smartphone. This module is used to transmit the rotary encoder data to the smartphone. Each registered tick of the 
+        rotary encoder triggers the transmission of a Bluetooth message that encodes the direction of rotation. Clockwise 
+        rotations are labelled "F", while counter-clockwise rotations are labelled "B".
+        </p>
+        <br><br>
+        <figure>
+            <img src="sketch.jpg" alt="Sketch of the Prototype">
+            <figcaption style="text-align: center;">Figure 4: Sketch of the Prototype</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        On the smartphone side, we have developed an app with AndroidStudio. The app features a video player that displays 
+        a 5-minute-long video that shows a counter, which starts at 00:00:000 and counts up the time in milliseconds. This 
+        visual feedback complements the traditional time bar at the bottom of the video player and provides the user with 
+        an additional indication of time. The app receives Bluetooth signals sent by the Arduino and interprets the messages 
+        containing "F" and "B" to skip the video forwards and backwards respectively. The number of skipped seconds is 
+        dynamically determined based on the number of Bluetooth messages received within one second. This threshold value 
+        defines the number of seconds per skip and ranges from a minimum of 500 milliseconds to a maximum of 10 seconds per 
+        encoder tick. This allows for bigger skips the faster the wheel is turned.<br>
+        For testing purposes, we included an Arduino push button. The first button press starts a timer that measures the 
+        elapsed milliseconds until the next button press. This approach allows us to accurately measure the time it takes 
+        participants to complete each video skipping task in the trials and provides valuable insights into the efficiency 
+        of the prototype. Although the rotary encoder also allows for a button press, the additional Arduino push button 
+        facilitated an equalized start/stop technique for both methods, which is necessary for a comparative analysis.
+        </p>
+        <br><br>
+        <figure>
+            <img src="circuit.jpg" alt="Implementation of the Prototype">
+            <figcaption style="text-align: center;">Figure 5: Implementation of the Prototype Circuit</figcaption>
+        </figure>
+        <br><br>
+
+    <h2>Experimental Protocol</h2>
+    <p>In this experimental study, eight participants were divided into two groups, each of which was assigned a specific 
+        starting technique for the experiment. Participants were given the task of performing time skipping exercises 
+        using the implemented back-of-device wheel, followed by the same tasks performed manually by hand, or vice versa, 
+        depending on their assigned group. <br>
+        The aims of the trials included measuring the time each participant took to complete the skipping exercises, 
+        measuring usability, where participants were asked to fill in the System Usability Scale, and investigating the 
+        precision and potential risk of dropping the smartphone associated with an unstable grip. The latter was investigated 
+        by recording the participants' hand movements while performing the task. <br>
+        To ensure a standardised test environment, an Android smartphone, in this case the OPPO Find X3 Lite, was used for all 
+        participants. <br>
+        For the group that started with the wheel, the experiment began with a 5-minute try-out phase. Otherwise, the try-out-phase 
+        would take place after absolving the experiment by hand. <br>
+        The participants familiarised themselves with the wheel, which was a new technology for them, while holding the 
+        smartphone horizontally with one hand. They were allowed to choose their preferred hand for holding the phone and 
+        could readjust the position of the wheel on the back of the phone for maximum comfort, taking into account different 
+        hand sizes. The tasks were instructed in the same way as the following actual test. The participants were given some 
+        randomly selected time stamps in the video to skip to, which gave them insight into the upcoming tasks 
+        (e.g. "skip to 1:32 min"). Milliseconds were not taken into account and participants only had to hit the correct second, 
+        which allowed for a fair level of difficulty and a small deviation. The short 5-minute trial time was sufficient to 
+        gain a clear understanding of how the wheel works, which boosted confidence in the subsequent test. <br>
+        During the actual test phase, the participants continued to hold the smartphone horizontally with one hand. Different 
+        categories were defined for the size of the skips in the video: small skips (<= 10 seconds), medium skips (<= 30 seconds) 
+        and large skips (> 60 seconds), with five time stamps for each category. This categorisation was used to evaluate 
+        the behaviour of both methods, the wheel and by hand, to determine possible differences within the individual categories. 
+        The trials all began with medium sized skips to avoid starting with one of the extremes, followed by short skips and 
+        ending with long skips. All participants were instructed to perform the same exact predetermined skips. After a 
+        complete round with all 15 time skips, participants performed a second round with all 15 time skips to obtain a more 
+        representative data set. 
+        </p>
+        <br><br>
+        <figure>
+            <img src="timestamps.jpg" alt="Fixed determined Timestamps for the trials" style="width: 60%; margin: 0 auto; display: block;">
+            <figcaption style="text-align: center;">Figure 6: Fixed pre-determined Timestamps for the trials</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        The experiment format remained consistent: the participants were told the next time point, started the timer by pressing 
+        the Arduino button with their spare hand that was not holding the smartphone, performed the video skip to the specified 
+        time point and stopped the timer by pressing the button again when the timestamp was reached. 
+        </p>
+        <br><br>
+        <figure>
+            <video controls muted>
+                <source src="WheelTrial1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <figcaption style="text-align: center;">Figure 7: Trial, skipping with the tangible Wheel - back view</figcaption>
+        </figure><br><br>
+        <figure>
+            <video controls muted>
+                <source src="WheelTrial2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <figcaption style="text-align: center;">Figure 8: Trial, skipping with the tangible Wheel to timestamp 03:23 Min- front view</figcaption>
+        </figure><br><br>
+        <figure>
+            <video controls muted>
+                <source src="HandTrial.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <figcaption style="text-align: center;">Figure 9: Trial, skipping manually by Hand to timestamp 02:58 Min</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        The measured time per trial was automatically written into an Excel file, serving as the repository for time data 
+        essential for subsequent result evaluations.
+        </p>
+        <br><br>
+        <figure>        
+            <img src="excel.jpg" alt="Excel-file for storing the time data" style="width: 75%; margin: 0 auto; display: block;">
+            <figcaption style="text-align: center;">Figure 10: Excel-File for storing the Time Data</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        The final phase of the experiment consisted of a review. Immediately after completing the test phase with the wheel, 
+        the participants received a questionnaire with ten statements from the standardised usability score system, each with 
+        five possible answers (strongly agree - strongly disagree). In addition to that, at the end of the entire test phase 
+        with both methods, four questions on personal preferences (e.g. "Which technique do you prefer for short skips 
+        (<= 10 seconds)?") with two answer options (by hand or by wheel) and two questions on strengths and difficulties with 
+        the wheel (e.g. "Where do you see the strengths of the wheel?") requiring textual responses, were asked. This post-trial 
+        protocol aimed to gain detailed insights into the users' subjective preferences and feedback, contributing to a 
+        detailed evaluation of the implemented tangible user interface.
+        </p>
+        <br><br>
+        <figure>        
+            <img src="questionnaire.jpg" alt="Extract from the Questionnaire" style="width: 75%; margin: 0 auto; display: block;">
+            <figcaption style="text-align: center;">Figure 11: Extract from the Questionnaire</figcaption>
+        </figure>
+        <br><br>
+
+    <h2>Results</h2>
+    <p>When analyzing the test results, we focused on comparing the efficiency of the implemented wheel for time skipping 
+        tasks with manual skipping. Our approach was to average the skip times for each timestamp across all participants 
+        for both techniques. The resulting average skip times were then compared between the two methods, and graphical 
+        representations were created for the different categories of timestamps (<= 30 sec, <= 10 sec, > 60 sec) to provide 
+        a clear visualization of the results. 
+        </p>
+        <br><br>
+        <figure>        
+            <img src="midSkips.jpg" alt="Evaluation of trial times for mid-sized skips">
+            <figcaption style="text-align: center;">Figure 12: Evaluation of Trial Times for Mid-Sized Skips</figcaption>
+        </figure><br><br>
+        <figure>        
+            <img src="smallSkips.jpg" alt="Evaluation of trial times for small skips">
+            <figcaption style="text-align: center;">Figure 13: Evaluation of Trial Times for Small Skips</figcaption>
+        </figure><br><br>
+        <figure>        
+            <img src="bigSkips.jpg" alt="Evaluation of trial times for big skips">
+            <figcaption style="text-align: center;">Figure 14: Evaluation of Trial Times for Big Skips</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        The video recordings during the trials revealed instances of overskipping with the wheel, especially on medium and 
+        large sized skips. Users tended to overskip by turning the wheel too fast and therefore too far, which required backward 
+        corrections. This made it clear that the precision and responsiveness of the system is a challenge with sudden changes 
+        to slower turning speeds or changes of turning direction. Overskipping during manual skipping, on the other hand, occurred 
+        more frequently during short skips, which was due to the fat finger problem that prevented users from seeing the time 
+        bar of the video underneath their thumb, resulting in inaccurate selection of the correct second.<br>
+        The risk of dropping the phone was also evaluated using video recordings. This showed that both techniques made it 
+        difficult to hold the smartphone. The participants who used the wheel found the prototype hard to hold. 1/4 of the 
+        users placed one edge of the smartphone on the table to increase stability. This suggests that the size of the prototype 
+        is an obstacle to comfortable gripping with the wheel attached. However, the wheel allowed the users to hold the 
+        smartphone naturally with holding on to the short side of the phone. Whereas this holding technique was not possible 
+        anymore with manual skipping by hand. That way users could not reach every corner of the screen anymore, resulting in 
+        readjusting their holding technique. They had to lay the phone into the palm of their hand to be able to reach the 
+        corners of the screen with their thumb from underneath the long side of the screen again. Therefore, one participant 
+        dropped the phone due to an unstable grip. <br>
+        The results of the questionnaire were consistent with these findings and showed the wheel as the preferred 
+        technique for short skips (100% voted in favour of the wheel), a balanced preference for the medium skips 
+        (50% voted in favour of the wheel) and an outweighing preference for manual skipping for long skips 
+        (only 25% voted in favour of the wheel). <br>
+        The strengths of the wheel cited by the participants included its high precision for short skipping tasks, the sensory 
+        tick feedback, and the ergonomic feel. <br>
+        Challenges included the longer time required for long skips, the difficulty in finding a proper position on the 
+        smartphone due to its size, and occasional inconsistencies in time changes most likely due to rotary encoder 
+        inconsistencies. 
+        </p>
+        <br><br>
+        <figure>        
+            <img src="smallPreference.jpg" alt="Users prefered technique for small skips">
+            <figcaption style="text-align: center;">Figure 15: Users' preferred Technique for Small Skips</figcaption>
+        </figure><br><br>
+        <figure>        
+            <img src="midPreference.jpg" alt="Users prefered technique for mid-sized skips">
+            <figcaption style="text-align: center;">Figure 16: Users' preferred Technique for Mid-Sized Skips</figcaption>
+        </figure><br><br>
+        <figure>        
+            <img src="bigPreference.jpg" alt="Users prefered technique for big skips">
+            <figcaption style="text-align: center;">Figure 17: Users' preferred Technique for Big Skips</figcaption>
+        </figure>
+        <br><br>
+        <p>
+        Overall, the wheel achieved a System Usability Scale (SUS) score of 74, indicating intermediate to good usability. 
+        This comprehensive evaluation offers valuable insights into the strengths, challenges, and user preferences associated 
+        with our implemented tangible user interface.<br><br></p>
+
+    <h2>Conclusion</h2>
+    <p>To summarize, the research question focused on finding out whether a tangible user interface on the back of the device 
+        could improve the users' overall satisfaction when skipping videos with one hand. The results showed that the tangible 
+        user interface on the back of the device was not able to outperform users' overall preferences for manual skipping. 
+        Although the implemented wheel was efficient for short skips, its overall performance for long skips fell short of 
+        expectations, even when a feature to skip faster by turning quickly was incorporated. The transitions between fast 
+        and slow skipping as well as sudden changes in the direction of rotation proved to be less precise.<br>
+        Despite these challenges, the wheel proved to be promising when it comes to increasing user satisfaction during precise 
+        tasks. The sensory feedback of the encoder effectively solved the fat finger problem during manual use and contributed 
+        to a more satisfying experience. This suggests that even if the wheel is not universally preferred for all skipping 
+        scenarios, it can be a notable improvement in certain use cases. <br>
+        Looking to the future, there are opportunities to improve the wheel's performance for less precise tasks. Our 
+        proposed improvements include refining the faster skip function upon faster rotation to better respond to subtle 
+        changes in rotation behaviour, reducing inaccuracies in the encoder's encoding of rotation direction to reduce false 
+        skips, and reducing the size of the prototype to make it easier to place on the smartphone and improve grip. <br>
+        Prospectively, the wheel has the potential to cover a wider range of functions in everyday smartphone use, such as 
+        zooming the camera and precise selection of text sections. Despite the current limitations, the results suggest 
+        that continued development and refinement could position the back-of-device tangible user interface as a valuable 
+        addition to smartphone interaction that will meet the diverse needs and preferences of users in the future. <br><br></p>
+
+    <h2>References</h2>
+    <p>
+        [1] Victor Cheung, Audrey Girouard. "Exploring Around-Device Tangible Interactions for Mobile Devices with a Magnetic 
+        Ring." Proceedings of the Twelfth International Conference on Tangible, Embedded, and Embodied Interaction, 2018, 
+        Pages 108-114. DOI: 
+        <a href="https://dl.acm.org/doi/abs/10.1145/3173225.3173283" target="_blank">https://dl.acm.org/doi/abs/10.1145/3173225.3173283</a>
+        <br><br>
+        [2] Wenzhe Cui et al. "BackSwipe: Back-of-device Word-Gesture Interaction on Smartphones." Proceedings of the 2021 
+        CHI Conference on Human Factors in Computing Systems, 2021, Pages 1-12. DOI: 
+        <a href="https://dl.acm.org/doi/10.1145/3411764.3445081" target="_blank">https://dl.acm.org/doi/10.1145/3411764.3445081</a>
+    </p>
+</body>
+</html>
